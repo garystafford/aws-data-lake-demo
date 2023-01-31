@@ -17,9 +17,9 @@ Resources:
             ConnectionInput:
                 ConnectionType: "JDBC"
                 PhysicalConnectionRequirements:
-                    SubnetId: "subnet-<your_subnet_here>"
+                    SubnetId: "<your_subnet_here>"
                     SecurityGroupIdList:
-                      - "sg-your_security_group_here"
+                      - "<your_security_group_here>"
                     AvailabilityZone: "us-east-1d"
                 ConnectionProperties:
                     JDBC_CONNECTION_URL: !Sub "jdbc:sqlserver://<your_connection_here>"
@@ -35,9 +35,9 @@ Resources:
             ConnectionInput:
                 ConnectionType: "JDBC"
                 PhysicalConnectionRequirements:
-                    SubnetId: "subnet-0076976c5d1ad567c"
+                    SubnetId: "<your_subnet_here>"
                     SecurityGroupIdList:
-                      - "sg-0bad6dae60fe96bda"
+                      - "<your_security_group_here>"
                     AvailabilityZone: "us-east-1d"
                 ConnectionProperties:
                     JDBC_CONNECTION_URL: !Sub "jdbc:mysql://<your_connection_here>"
@@ -53,9 +53,9 @@ Resources:
             ConnectionInput:
                 ConnectionType: "JDBC"
                 PhysicalConnectionRequirements:
-                    SubnetId: "subnet-0076976c5d1ad567c"
+                    SubnetId: "<your_subnet_here>"
                     SecurityGroupIdList:
-                      - "sg-0bad6dae60fe96bda"
+                      - "<your_security_group_here>"
                     AvailabilityZone: "us-east-1d"
                 ConnectionProperties:
                     JDBC_CONNECTION_URL: !Sub "jdbc:postgresql://<your_connection_here>"

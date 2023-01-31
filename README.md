@@ -64,9 +64,6 @@ aws s3 rm "s3://${DATA_LAKE_BUCKET}/tickit/" --recursive
 
 # clear out existing data lake data catalog
 aws glue delete-database --name tickit_demo
-
-#aws glue create-database \
-#  --database-input '{"Name": "data_lake_demo", "Description": "Track sales activity for the fictional TICKIT web site"}'
         
 aws glue get-tables \
   --database-name tickit_demo \
