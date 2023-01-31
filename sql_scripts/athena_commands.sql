@@ -132,6 +132,7 @@ FROM "data_lake_demo"."gold_sales_by_category"
 WHERE catgroup = 'Shows'
 LIMIT 150000;
 
+SELECT *
 FROM "data_lake_demo"."gold_sales_by_category"
 WHERE catgroup = 'Shows' AND catname = 'Opera'
 LIMIT 150000;
