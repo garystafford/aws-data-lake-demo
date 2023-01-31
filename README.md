@@ -4,7 +4,7 @@
 
 - [Amazon Redshift TICKIT Sample Database](https://docs.aws.amazon.com/redshift/latest/dg/c_sampledb.html)
 
-## TICKIT Tables
+## AWS Glue Data Catalog Tables
 
 ```text
 --------------------------------
@@ -33,7 +33,7 @@
 |  source_tickit_ems_venue     |
 +------------------------------+
 ```
-## Naming Conventions
+## Data Lake Naming Conventions
 
 ```text
 +-------------+---------------------------------------------------------------------+
@@ -46,7 +46,7 @@
 +-------------+---------------------------------------------------------------------+
 ```
 
-## Commands
+## Demo Commands
 
 ```shell
 aws cloudformation deploy \
