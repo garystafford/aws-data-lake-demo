@@ -1,0 +1,117 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Stack for 'Building a Data Lake on AWS' Video Demonstration 2023"
+Resources:
+    RDSDBInstanceMSSQL:
+        Type: "AWS::RDS::DBInstance"
+        Properties:
+            DBInstanceIdentifier: "demomssqldb"
+            AllocatedStorage: 100
+            DBInstanceClass: "db.m5.large"
+            Engine: "sqlserver-ex"
+            MasterUsername: "admin"
+            MasterUserPassword: "REPLACEME"
+            PreferredBackupWindow: "04:51-05:21"
+            BackupRetentionPeriod: 7
+            AvailabilityZone: !Sub "${AWS::Region}a"
+            PreferredMaintenanceWindow: "sun:04:00-sun:04:30"
+            MultiAZ: false
+            EngineVersion: "15.00.4073.23.v1"
+            AutoMinorVersionUpgrade: false
+            LicenseModel: "license-included"
+            CharacterSetName: "SQL_Latin1_General_CP1_CI_AS"
+            PubliclyAccessible: true
+            StorageType: "gp2"
+            Port: 1433
+            StorageEncrypted: false
+            CopyTagsToSnapshot: true
+            MonitoringInterval: 60
+            EnableIAMDatabaseAuthentication: false
+            EnablePerformanceInsights: true
+            PerformanceInsightsKMSKeyId: !Sub "arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/91f4280f-68bf-4ee5-978a-94ea015ee40d"
+            PerformanceInsightsRetentionPeriod: 7
+            DeletionProtection: false
+            DBSubnetGroupName: "default"
+            VPCSecurityGroups: 
+              - "sg-56249107"
+            MaxAllocatedStorage: 1000
+            DBParameterGroupName: "default.sqlserver-ex-15.0"
+            OptionGroupName: "default:sqlserver-ex-15-00"
+            MonitoringRoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/rds-monitoring-role"
+            CACertificateIdentifier: "rds-ca-2019"
+
+    RDSDBInstanceMySQL:
+        Type: "AWS::RDS::DBInstance"
+        Properties:
+            DBInstanceIdentifier: "demomysqldb"
+            AllocatedStorage: 100
+            DBInstanceClass: "db.m5.large"
+            Engine: "mysql"
+            MasterUsername: "admin"
+            MasterUserPassword: "REPLACEME"
+            PreferredBackupWindow: "09:11-09:41"
+            BackupRetentionPeriod: 7
+            AvailabilityZone: !Sub "${AWS::Region}d"
+            PreferredMaintenanceWindow: "wed:03:17-wed:03:47"
+            MultiAZ: false
+            EngineVersion: "5.7.34"
+            AutoMinorVersionUpgrade: true
+            LicenseModel: "general-public-license"
+            PubliclyAccessible: true
+            StorageType: "gp2"
+            Port: 3306
+            StorageEncrypted: true
+            KmsKeyId: !Sub "arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/91f4280f-68bf-4ee5-978a-94ea015ee40d"
+            CopyTagsToSnapshot: true
+            MonitoringInterval: 60
+            EnableIAMDatabaseAuthentication: false
+            EnablePerformanceInsights: true
+            PerformanceInsightsKMSKeyId: !Sub "arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/91f4280f-68bf-4ee5-978a-94ea015ee40d"
+            PerformanceInsightsRetentionPeriod: 7
+            DeletionProtection: false
+            DBSubnetGroupName: "default"
+            VPCSecurityGroups: 
+              - "sg-56249107"
+            MaxAllocatedStorage: 1000
+            DBParameterGroupName: "default.mysql5.7"
+            OptionGroupName: "default:mysql-5-7"
+            MonitoringRoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/rds-monitoring-role"
+            CACertificateIdentifier: "rds-ca-2019"
+
+    RDSDBInstancePostgreSQL:
+        Type: "AWS::RDS::DBInstance"
+        Properties:
+            DBInstanceIdentifier: "demopostgresqldb"
+            AllocatedStorage: 100
+            DBInstanceClass: "db.m5.large"
+            Engine: "postgres"
+            MasterUsername: "postgres"
+            MasterUserPassword: "REPLACEME"
+            PreferredBackupWindow: "10:30-11:00"
+            BackupRetentionPeriod: 7
+            AvailabilityZone: !Sub "${AWS::Region}d"
+            PreferredMaintenanceWindow: "wed:03:16-wed:03:46"
+            MultiAZ: false
+            EngineVersion: "13.3"
+            AutoMinorVersionUpgrade: true
+            LicenseModel: "postgresql-license"
+            PubliclyAccessible: true
+            StorageType: "gp2"
+            Port: 5432
+            StorageEncrypted: true
+            KmsKeyId: !Sub "arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/91f4280f-68bf-4ee5-978a-94ea015ee40d"
+            CopyTagsToSnapshot: true
+            MonitoringInterval: 60
+            EnableIAMDatabaseAuthentication: false
+            EnablePerformanceInsights: true
+            PerformanceInsightsKMSKeyId: !Sub "arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/91f4280f-68bf-4ee5-978a-94ea015ee40d"
+            PerformanceInsightsRetentionPeriod: 7
+            DeletionProtection: true
+            DBSubnetGroupName: "default"
+            VPCSecurityGroups: 
+              - "sg-56249107"
+            MaxAllocatedStorage: 1000
+            DBParameterGroupName: "default.postgres13"
+            OptionGroupName: "default:postgres-13"
+            MonitoringRoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/rds-monitoring-role"
+            CACertificateIdentifier: "rds-ca-2019"
+
