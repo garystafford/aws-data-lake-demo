@@ -22,5 +22,16 @@
       <jdbc-url>jdbc:mysql://datahub-demo-mysql.cxauxtdppqiu.us-east-1.rds.amazonaws.com :3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="Amazon Athena" uuid="960f922c-7ce0-4018-a3af-6d8c94ee1ef5">
+      <driver-ref>fed2d62f-10fe-4e74-98f2-9b4b121e5fdf</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>com.simba.athena.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:awsathena://AwsRegion=us-east-1;S3OutputLocation=s3://aws-athena-query-results-676164205626-us-east-1/</jdbc-url>
+      <jdbc-additional-properties>
+        <property name="Profile" value="676164205626_AdministratorAccess" />
+      </jdbc-additional-properties>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
