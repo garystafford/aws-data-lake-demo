@@ -57,7 +57,9 @@ BEGIN
               FROM sale
               ORDER BY RAND()
               LIMIT 1) AS saletime;
+
         SET a = a + 1;
+
         IF a = 25000 THEN
             LEAVE sales_loop;
         END IF;
