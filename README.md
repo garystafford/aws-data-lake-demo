@@ -1,6 +1,6 @@
-# Building a Data Lake on AWS
+# Building Data Lakes on AWS
 
-## References
+## Sample Data
 
 - [Amazon Redshift TICKIT Sample Database](https://docs.aws.amazon.com/redshift/latest/dg/c_sampledb.html)
 
@@ -17,6 +17,8 @@
 |  bronze_tickit_ems_category  |
 |  bronze_tickit_ems_event     |
 |  bronze_tickit_ems_venue     |
+|  gold_sales_by_category      |
+|  gold_sales_by_date          |
 |  silver_ecomm_date           |
 |  silver_ecomm_listing        |
 |  silver_ecomm_sale           |
@@ -33,14 +35,15 @@
 |  source_tickit_ems_venue     |
 +------------------------------+
 ```
+
 ## Data Lake Naming Conventions
 
 ```text
 +-------------+---------------------------------------------------------------------+
 | Prefix      | Description                                                         |
 +-------------+---------------------------------------------------------------------+
-| _source     | Data Source metadata only                                           |
-| _bronze     | Bronze/Raw data from data sources (org. call _converted in video)   |
+| _source     | Data source metadata (Amazon RDS)                                   |
+| _bronze     | Bronze/Raw data from data sources                                   |
 | _silver     | Silver/Augmented data - raw data with initial ELT/cleansing applied |
 | _gold       | Gold/Curated data - aggregated/joined refined data                  |
 +-------------+---------------------------------------------------------------------+
@@ -68,7 +71,6 @@ DATA_LAKE_BUCKET="open-data-lake-demo-us-east-1"
 # clear out existing data lake data
 aws s3 rm "s3://${DATA_LAKE_BUCKET}/tickit/" --recursive
 
-
 # clear out existing data lake data catalog
 aws glue delete-database --name data_lake_demo
 
@@ -76,7 +78,7 @@ aws glue create-database \
   --database-input '{"Name": "data_lake_demo", "Description": "Track sales activity for the fictional TICKIT web site"}'
 
 aws glue get-tables \
-  --database-name tickit_demo \
+  --database-name data_lake_demo \
   --query 'TableList[].Name' \
   --output table
 
