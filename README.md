@@ -42,10 +42,10 @@
 +-------------+---------------------------------------------------------------------+
 | Prefix      | Description                                                         |
 +-------------+---------------------------------------------------------------------+
-| _source     | Data source metadata (Amazon RDS)                                   |
-| _bronze     | Bronze/Raw data from data sources                                   |
-| _silver     | Silver/Augmented data - raw data with initial ELT/cleansing applied |
-| _gold       | Gold/Curated data - aggregated/joined refined data                  |
+| source_     | Data source metadata (Amazon RDS)                                   |
+| bronze_     | Bronze/Raw data from data sources                                   |
+| silver_     | Silver/Augmented data - raw data with initial ELT/cleansing applied |
+| gold_       | Gold/Curated data - aggregated/joined refined data                  |
 +-------------+---------------------------------------------------------------------+
 ```
 
