@@ -50,11 +50,17 @@
 
 ```shell
 aws cloudformation deploy \
+    --stack-name data-lake-demo-rds \
+    --template-file ./cloudformation/data-lake-demo-rds.yml \
+    --capabilities CAPABILITY_NAMED_IAM
+
+aws cloudformation deploy \
     --stack-name data-lake-demo-glue \
     --template-file ./cloudformation/data-lake-demo-glue.yml \
     --capabilities CAPABILITY_NAMED_IAM
 
-# optional to delete stack when done with demo
+# optional to delete stacks when done with demo
+aws cloudformation delete-stack --stack-name data-lake-demo-rds
 aws cloudformation delete-stack --stack-name data-lake-demo-glue
 
 DATA_LAKE_BUCKET="open-data-lake-demo-us-east-1"
