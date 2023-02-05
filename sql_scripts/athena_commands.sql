@@ -11,7 +11,6 @@ GROUP BY d.year,
 ORDER BY d.year,
     d.month_int;
 
-
 -- ctas gold/curated #1
 CREATE TABLE IF NOT EXISTS gold_sales_by_category
 WITH (
@@ -49,7 +48,6 @@ FROM silver_ecomm_sale AS s
     LEFT JOIN silver_tickit_ems_event AS e ON e.eventid = s.eventid
     LEFT JOIN silver_ecomm_date AS d ON d.dateid = s.dateid
     LEFT JOIN cat AS c ON c.eventid = s.eventid;
-
 
 -- ctas gold/curated #2
 CREATE TABLE IF NOT EXISTS gold_sales_by_date
@@ -90,11 +88,9 @@ FROM silver_ecomm_sale AS s
     LEFT JOIN silver_ecomm_date AS d ON d.dateid = s.dateid
     LEFT JOIN cat AS c ON c.eventid = s.eventid;
 
-
 SELECT * FROM gold_sales_by_date
 WHERE catgroup = 'Concerts'
 LIMIT 10;
-
 
 -- query gold/agg data
 -- save as view - view_agg_sales_by_month
@@ -109,7 +105,6 @@ GROUP BY year(caldate),
 ORDER BY year(caldate),
     month(caldate);
 
-
 SELECT year(caldate) AS sales_year,
     month(caldate) AS sales_month,
     round(sum(sale_amount), 2) AS sum_sales,
@@ -120,8 +115,6 @@ GROUP BY year(caldate),
     month(caldate)
 ORDER BY year(caldate),
     month(caldate);
-
-
 
 -- progressive query efficiency
 -- using of partitions and columns with Parquet

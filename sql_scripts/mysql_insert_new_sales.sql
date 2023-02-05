@@ -68,4 +68,4 @@ END $$
 
 CALL ADD_SYNTHETIC_SALES();
 
-OPTIMIZE TABLE ecomm.sale;
+ANALYZE TABLE ecomm.sale;

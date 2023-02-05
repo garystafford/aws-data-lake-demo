@@ -22,8 +22,6 @@ CREATE TABLE saas.event(
 	eventname varchar(200),
 	starttime timestamp);
 
-
-
 VACUUM ANALYZE;
 VACUUM FULL;
 
