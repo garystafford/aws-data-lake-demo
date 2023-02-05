@@ -1,21 +1,28 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Stack for 'Building a Data Lake on AWS' Video Demonstration 2023"
+Metadata:
+    Generator: "former2"
+Description: "Stack for 'Building Data Lakes on AWS' Video Demonstration 2023"
+Parameters:
+  MyDBSubnetGroupName:
+    Default: "default-vpc-02d8f1ffe83d1d835"
+  MyVPCSecurityGroup:
+    Default: "sg-56249107"
 Resources:
-    RDSDBInstanceMSSQL:
+    RDSDBInstance:
         Type: "AWS::RDS::DBInstance"
         Properties:
-            DBInstanceIdentifier: "demomssqldb"
-            AllocatedStorage: 100
-            DBInstanceClass: "db.m5.large"
+            DBInstanceIdentifier: "datahub-demo-mssql"
+            AllocatedStorage: 200
+            DBInstanceClass: "db.t3.medium"
             Engine: "sqlserver-ex"
             MasterUsername: "admin"
             MasterUserPassword: "REPLACEME"
             PreferredBackupWindow: "04:51-05:21"
             BackupRetentionPeriod: 7
-            AvailabilityZone: !Sub "${AWS::Region}a"
-            PreferredMaintenanceWindow: "sun:04:00-sun:04:30"
+            AvailabilityZone: !Sub "${AWS::Region}b"
+            PreferredMaintenanceWindow: "sun:04:07-sun:04:37"
             MultiAZ: false
-            EngineVersion: "15.00.4073.23.v1"
+            EngineVersion: "15.00.4153.1.v1"
             AutoMinorVersionUpgrade: false
             LicenseModel: "license-included"
             CharacterSetName: "SQL_Latin1_General_CP1_CI_AS"
@@ -24,36 +31,39 @@ Resources:
             Port: 1433
             StorageEncrypted: false
             CopyTagsToSnapshot: true
-            MonitoringInterval: 60
+            MonitoringInterval: 0
             EnableIAMDatabaseAuthentication: false
-            EnablePerformanceInsights: true
-            PerformanceInsightsKMSKeyId: !Sub "arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/91f4280f-68bf-4ee5-978a-94ea015ee40d"
-            PerformanceInsightsRetentionPeriod: 7
+            EnablePerformanceInsights: false
             DeletionProtection: false
-            DBSubnetGroupName: "default"
-            VPCSecurityGroups: 
-              - "sg-56249107"
-            MaxAllocatedStorage: 1000
+            DBSubnetGroupName: !Ref MyDBSubnetGroupName
+            VPCSecurityGroups:
+              - !Ref MyVPCSecurityGroup
             DBParameterGroupName: "default.sqlserver-ex-15.0"
             OptionGroupName: "default:sqlserver-ex-15-00"
-            MonitoringRoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/rds-monitoring-role"
             CACertificateIdentifier: "rds-ca-2019"
+            Tags:
+              -
+                Key: "Project"
+                Value: "Data Lake Demo"
+              -
+                Key: "Devops-Guru-RDS"
+                Value: "true"
 
-    RDSDBInstanceMySQL:
+    RDSDBInstance2:
         Type: "AWS::RDS::DBInstance"
         Properties:
-            DBInstanceIdentifier: "demomysqldb"
-            AllocatedStorage: 100
+            DBInstanceIdentifier: "datahub-demo-mysql"
+            AllocatedStorage: 200
             DBInstanceClass: "db.m5.large"
             Engine: "mysql"
             MasterUsername: "admin"
             MasterUserPassword: "REPLACEME"
             PreferredBackupWindow: "09:11-09:41"
             BackupRetentionPeriod: 7
-            AvailabilityZone: !Sub "${AWS::Region}d"
+            AvailabilityZone: !Sub "${AWS::Region}b"
             PreferredMaintenanceWindow: "wed:03:17-wed:03:47"
             MultiAZ: false
-            EngineVersion: "5.7.34"
+            EngineVersion: "5.7.38"
             AutoMinorVersionUpgrade: true
             LicenseModel: "general-public-license"
             PubliclyAccessible: true
@@ -62,56 +72,61 @@ Resources:
             StorageEncrypted: true
             KmsKeyId: !Sub "arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/91f4280f-68bf-4ee5-978a-94ea015ee40d"
             CopyTagsToSnapshot: true
-            MonitoringInterval: 60
+            MonitoringInterval: 0
             EnableIAMDatabaseAuthentication: false
-            EnablePerformanceInsights: true
-            PerformanceInsightsKMSKeyId: !Sub "arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/91f4280f-68bf-4ee5-978a-94ea015ee40d"
-            PerformanceInsightsRetentionPeriod: 7
+            EnablePerformanceInsights: false
             DeletionProtection: false
-            DBSubnetGroupName: "default"
-            VPCSecurityGroups: 
-              - "sg-56249107"
-            MaxAllocatedStorage: 1000
+            DBSubnetGroupName: !Ref MyDBSubnetGroupName
+            VPCSecurityGroups:
+              - !Ref MyVPCSecurityGroup
             DBParameterGroupName: "default.mysql5.7"
             OptionGroupName: "default:mysql-5-7"
-            MonitoringRoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/rds-monitoring-role"
             CACertificateIdentifier: "rds-ca-2019"
+            Tags:
+              -
+                Key: "Project"
+                Value: "Data Lake Demo"
+              -
+                Key: "Devops-Guru-RDS"
+                Value: "true"
 
-    RDSDBInstancePostgreSQL:
+    RDSDBInstance3:
         Type: "AWS::RDS::DBInstance"
         Properties:
-            DBInstanceIdentifier: "demopostgresqldb"
-            AllocatedStorage: 100
-            DBInstanceClass: "db.m5.large"
+            DBInstanceIdentifier: "datahub-demo-postgres"
+            AllocatedStorage: 200
+            DBInstanceClass: "db.m6g.large"
             Engine: "postgres"
-            MasterUsername: "postgres"
+            MasterUsername: "masteruser"
             MasterUserPassword: "REPLACEME"
-            PreferredBackupWindow: "10:30-11:00"
-            BackupRetentionPeriod: 7
-            AvailabilityZone: !Sub "${AWS::Region}d"
-            PreferredMaintenanceWindow: "wed:03:16-wed:03:46"
+            DBName: "pagila"
+            PreferredBackupWindow: "10:13-10:43"
+            BackupRetentionPeriod: 1
+            AvailabilityZone: !Sub "${AWS::Region}b"
+            PreferredMaintenanceWindow: "mon:03:54-mon:04:24"
             MultiAZ: false
-            EngineVersion: "13.3"
+            EngineVersion: "14.5"
             AutoMinorVersionUpgrade: true
             LicenseModel: "postgresql-license"
             PubliclyAccessible: true
             StorageType: "gp2"
             Port: 5432
-            StorageEncrypted: true
-            KmsKeyId: !Sub "arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/91f4280f-68bf-4ee5-978a-94ea015ee40d"
+            StorageEncrypted: false
             CopyTagsToSnapshot: true
-            MonitoringInterval: 60
+            MonitoringInterval: 0
             EnableIAMDatabaseAuthentication: false
-            EnablePerformanceInsights: true
-            PerformanceInsightsKMSKeyId: !Sub "arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/91f4280f-68bf-4ee5-978a-94ea015ee40d"
-            PerformanceInsightsRetentionPeriod: 7
-            DeletionProtection: true
-            DBSubnetGroupName: "default"
-            VPCSecurityGroups: 
-              - "sg-56249107"
-            MaxAllocatedStorage: 1000
-            DBParameterGroupName: "default.postgres13"
-            OptionGroupName: "default:postgres-13"
-            MonitoringRoleArn: !Sub "arn:aws:iam::${AWS::AccountId}:role/rds-monitoring-role"
+            EnablePerformanceInsights: false
+            DeletionProtection: false
+            DBSubnetGroupName: !Ref MyDBSubnetGroupName
+            VPCSecurityGroups:
+              - !Ref MyVPCSecurityGroup
+            DBParameterGroupName: "default.postgres14"
+            OptionGroupName: "default:postgres-14"
             CACertificateIdentifier: "rds-ca-2019"
-
+            Tags:
+              -
+                Key: "Project"
+                Value: "Data Lake Demo"
+              -
+                Key: "Devops-Guru-RDS"
+                Value: "true"

@@ -1,5 +1,10 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Description: "Stack for 'Building a Data Lake on AWS' Video Demonstration 2023"
+Parameters:
+  MySubnetId:
+    Default: "subnet-0076976c5d1ad567c"
+  MySecurityGroupId:
+    Default: "sg-0bad6dae60fe96bda"
 Resources:
     S3BucketDataLake:
         Type: "AWS::S3::Bucket"
@@ -17,9 +22,9 @@ Resources:
             ConnectionInput:
                 ConnectionType: "JDBC"
                 PhysicalConnectionRequirements:
-                    SubnetId: "<your_subnet_here>"
+                    SubnetId: !Ref MySubnetId
                     SecurityGroupIdList:
-                      - "<your_security_group_here>"
+                      - !Ref MySecurityGroupId
                     AvailabilityZone: "us-east-1d"
                 ConnectionProperties:
                     JDBC_CONNECTION_URL: !Sub "jdbc:sqlserver://<your_connection_here>"
@@ -35,9 +40,9 @@ Resources:
             ConnectionInput:
                 ConnectionType: "JDBC"
                 PhysicalConnectionRequirements:
-                    SubnetId: "<your_subnet_here>"
+                    SubnetId: !Ref MySubnetId
                     SecurityGroupIdList:
-                      - "<your_security_group_here>"
+                      - !Ref MySecurityGroupId
                     AvailabilityZone: "us-east-1d"
                 ConnectionProperties:
                     JDBC_CONNECTION_URL: !Sub "jdbc:mysql://<your_connection_here>"
@@ -53,9 +58,9 @@ Resources:
             ConnectionInput:
                 ConnectionType: "JDBC"
                 PhysicalConnectionRequirements:
-                    SubnetId: "<your_subnet_here>"
+                    SubnetId: !Ref MySubnetId
                     SecurityGroupIdList:
-                      - "<your_security_group_here>"
+                      - !Ref MySecurityGroupId
                     AvailabilityZone: "us-east-1d"
                 ConnectionProperties:
                     JDBC_CONNECTION_URL: !Sub "jdbc:postgresql://<your_connection_here>"
@@ -70,7 +75,7 @@ Resources:
         Properties:
             DatabaseInput: 
                 Name: "data_lake_demo"
-                Description: "Track sales activity for the fictional TICKIT web site"
+                Description: "TICKIT: A platform that brings together buyers and sellers of tickets to entertainment events"
             CatalogId: !Ref "AWS::AccountId"
 
     GlueCrawlerMSSQL:
@@ -143,7 +148,7 @@ Resources:
                 --enable-glue-datacatalog: "true"
                 --enable-metrics: "true"
                 --enable-spark-ui: "true"
-                --job-bookmark-option: "job-bookmark-disable"
+                --job-bookmark-option: "job-bookmark-enable"
                 --job-language: "python"
                 --spark-event-logs-path: !Sub "s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/"
             MaxRetries: 0
@@ -171,7 +176,7 @@ Resources:
                 --enable-glue-datacatalog: "true"
                 --enable-metrics: "true"
                 --enable-spark-ui: "true"
-                --job-bookmark-option: "job-bookmark-disable"
+                --job-bookmark-option: "job-bookmark-enable"
                 --job-language: "python"
                 --spark-event-logs-path: !Sub "s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/"
             Connections:
@@ -203,7 +208,7 @@ Resources:
                 --enable-glue-datacatalog: "true"
                 --enable-metrics: "true"
                 --enable-spark-ui: "true"
-                --job-bookmark-option: "job-bookmark-disable"
+                --job-bookmark-option: "job-bookmark-enable"
                 --job-language: "python"
                 --spark-event-logs-path: !Sub "s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/"
             MaxRetries: 0
@@ -231,7 +236,7 @@ Resources:
                 --enable-glue-datacatalog: "true"
                 --enable-metrics: "true"
                 --enable-spark-ui: "true"
-                --job-bookmark-option: "job-bookmark-disable"
+                --job-bookmark-option: "job-bookmark-enable"
                 --job-language: "python"
                 --spark-event-logs-path: !Sub "s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/"
             Connections:
@@ -263,7 +268,7 @@ Resources:
                 --enable-glue-datacatalog: "true"
                 --enable-metrics: "true"
                 --enable-spark-ui: "true"
-                --job-bookmark-option: "job-bookmark-disable"
+                --job-bookmark-option: "job-bookmark-enable"
                 --job-language: "python"
                 --spark-event-logs-path: !Sub "s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/"
             MaxRetries: 0
@@ -291,7 +296,7 @@ Resources:
                 --enable-glue-datacatalog: "true"
                 --enable-metrics: "true"
                 --enable-spark-ui: "true"
-                --job-bookmark-option: "job-bookmark-disable"
+                --job-bookmark-option: "job-bookmark-enable"
                 --job-language: "python"
                 --spark-event-logs-path: !Sub "s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/"
             Connections:
@@ -323,7 +328,7 @@ Resources:
                 --enable-glue-datacatalog: "true"
                 --enable-metrics: "true"
                 --enable-spark-ui: "true"
-                --job-bookmark-option: "job-bookmark-disable"
+                --job-bookmark-option: "job-bookmark-enable"
                 --job-language: "python"
                 --spark-event-logs-path: !Sub "s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/"
             MaxRetries: 0
@@ -351,7 +356,7 @@ Resources:
                 --enable-glue-datacatalog: "true"
                 --enable-metrics: "true"
                 --enable-spark-ui: "true"
-                --job-bookmark-option: "job-bookmark-disable"
+                --job-bookmark-option: "job-bookmark-enable"
                 --job-language: "python"
                 --spark-event-logs-path: !Sub "s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/"
             Connections:
@@ -383,7 +388,7 @@ Resources:
                 --enable-glue-datacatalog: "true"
                 --enable-metrics: "true"
                 --enable-spark-ui: "true"
-                --job-bookmark-option: "job-bookmark-disable"
+                --job-bookmark-option: "job-bookmark-enable"
                 --job-language: "python"
                 --spark-event-logs-path: !Sub "s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/"
             MaxRetries: 0
@@ -411,7 +416,7 @@ Resources:
                 --enable-glue-datacatalog: "true"
                 --enable-metrics: "true"
                 --enable-spark-ui: "true"
-                --job-bookmark-option: "job-bookmark-disable"
+                --job-bookmark-option: "job-bookmark-enable"
                 --job-language: "python"
                 --spark-event-logs-path: !Sub "s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/"
             Connections:
@@ -443,7 +448,7 @@ Resources:
                 --enable-glue-datacatalog: "true"
                 --enable-metrics: "true"
                 --enable-spark-ui: "true"
-                --job-bookmark-option: "job-bookmark-disable"
+                --job-bookmark-option: "job-bookmark-enable"
                 --job-language: "python"
                 --spark-event-logs-path: !Sub "s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/"
             MaxRetries: 0
@@ -471,7 +476,7 @@ Resources:
                 --enable-glue-datacatalog: "true"
                 --enable-metrics: "true"
                 --enable-spark-ui: "true"
-                --job-bookmark-option: "job-bookmark-disable"
+                --job-bookmark-option: "job-bookmark-enable"
                 --job-language: "python"
                 --spark-event-logs-path: !Sub "s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/"
             Connections: 
@@ -503,7 +508,7 @@ Resources:
                 --enable-glue-datacatalog: "true"
                 --enable-metrics: "true"
                 --enable-spark-ui: "true"
-                --job-bookmark-option: "job-bookmark-disable"
+                --job-bookmark-option: "job-bookmark-enable"
                 --job-language: "python"
                 --spark-event-logs-path: !Sub "s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/"
             MaxRetries: 0
@@ -531,7 +536,7 @@ Resources:
                 --enable-glue-datacatalog: "true"
                 --enable-metrics: "true"
                 --enable-spark-ui: "true"
-                --job-bookmark-option: "job-bookmark-disable"
+                --job-bookmark-option: "job-bookmark-enable"
                 --job-language: "python"
                 --spark-event-logs-path: !Sub "s3://aws-glue-assets-${AWS::AccountId}-${AWS::Region}/sparkHistoryLogs/"
             Connections: 

@@ -122,22 +122,29 @@ ORDER BY year(caldate),
     month(caldate);
 
 
--- efficiency of partitions and columns with Parquet
-SELECT *
-FROM "data_lake_demo"."gold_sales_by_category"
-LIMIT 150000;
+
+-- progressive query efficiency
+-- using of partitions and columns with Parquet
 
 SELECT *
+FROM "data_lake_demo"."gold_sales_by_category"
+LIMIT 250000;
+
+SELECT caldate, sale_amount, commission
+FROM "data_lake_demo"."gold_sales_by_category"
+LIMIT 250000;
+
+SELECT caldate, sale_amount, commission
 FROM "data_lake_demo"."gold_sales_by_category"
 WHERE catgroup = 'Shows'
-LIMIT 150000;
-
-SELECT *
-FROM "data_lake_demo"."gold_sales_by_category"
-WHERE catgroup = 'Shows' AND catname = 'Opera'
-LIMIT 150000;
+LIMIT 250000;
 
 SELECT caldate, sale_amount, commission
 FROM "data_lake_demo"."gold_sales_by_category"
 WHERE catgroup = 'Shows' AND catname = 'Opera'
-LIMIT 150000;
+LIMIT 250000;
+
+SELECT caldate, sale_amount, commission
+FROM "data_lake_demo"."gold_sales_by_date"
+WHERE year=2020 AND month=6
+LIMIT 250000;
