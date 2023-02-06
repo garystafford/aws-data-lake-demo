@@ -11,7 +11,8 @@ BEGIN
     DECLARE a INT Default 1;
     sales_loop:
     LOOP
-        INSERT INTO sale (listid,
+        INSERT INTO sale (salesid,
+                          listid,
                           sellerid,
                           buyerid,
                           eventid,
@@ -21,7 +22,9 @@ BEGIN
                           commission,
                           saletime)
         SELECT *
-        FROM (SELECT listid
+        FROM (SELECT MAX(salesid) + 1
+              FROM sale) as salesid,
+             (SELECT listid
               FROM sale
               ORDER BY RAND()
               LIMIT 1) AS listid,
@@ -60,12 +63,10 @@ BEGIN
 
         SET a = a + 1;
 
-        IF a = 25000 THEN
+        IF a = 10000 THEN
             LEAVE sales_loop;
         END IF;
     END LOOP sales_loop;
 END $$
 
 CALL ADD_SYNTHETIC_SALES();
-
-ANALYZE TABLE ecomm.sale;
