@@ -1,6 +1,6 @@
 -- Reference: https://www.geeksforgeeks.org/loops-in-mysql/
 -- 14 m 57 s per 1K new records
--- 2 h 20 m 43 s  per 10K new records
+-- 2 h 20 m 43 s per 10K new records
 
 DELIMITER $$
 
